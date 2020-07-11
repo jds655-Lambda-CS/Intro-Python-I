@@ -31,10 +31,46 @@ import sys
 import calendar
 from datetime import datetime
 
-args = sys.argv()
-argnum = len(args)-1
+args = sys.argv
+argNum = len(args) - 1
+cal = calendar.TextCalendar()
+now = datetime.now()
+month = 0
+year = 0
 
-def printCalendar(month, year):
+
+def printCalendar(year, month):
+    print(f'Calendar for Year: {month}, Month: {year}\n\n')
+    cal.prmonth(year, month, 3)
     return
 
-if argnum == 0:
+
+def printUsage():
+    print('Usage: 14-cal.py month [year]')
+    return
+
+
+def handleArgs():
+    global month
+    global year
+    if argNum == 0:
+        month = now.month
+        year = now.year
+        return 1
+    elif argNum == 1:
+        month = int(args[1])
+        year = now.year
+        return 1
+    elif argNum == 2:
+        month = int(args[1])
+        year = int(args[2])
+        return 1
+    else:
+        printUsage()
+        return 0
+
+
+if handleArgs() == 1:
+    printCalendar(year, month)
+
+
